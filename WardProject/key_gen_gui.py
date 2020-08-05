@@ -29,6 +29,12 @@ class MyAvatar(ILeftBody, Image):
     pass
 
 
+# FIXME, the project must only contain necessary icons and at proper resolutions (here Witness_Angel_LogotypeX.png are huge)
+
+# FIXME - fix incorrect margins around main title etc.
+# FIXME - selected usb key doesn't appear highlighted it seems
+# FIXME - all fields and controls in the bottom must be disabled as long as no usb key is selected
+
 class MainApp(MDApp):
 
     def __init__(self, **kwargs):
@@ -37,17 +43,19 @@ class MainApp(MDApp):
 
     def show_validate(self):
 
-        if  self.key_device_selected== None:
+        if  self.key_device_selected== None:  # FIXME when I refresh, usb key must be properly deselected
             user_error = "Please select USB"
             title_dialog="USB not selected !!"
             self.open_dialog(user_error,title_dialog)
         else:
+            # FIXME use "==" or here juste "if variable", almost never is (except "is None")
+            # FIXME beware of FORMATTING (use Black)
             if (self.list.ids.userfield.text is not "" )and(self.list.ids.passphrasefield.text is not "" ):
                 self.initialize_USB()
             elif (self.list.ids.userfield.text is "" )and(self.list.ids.passphrasefield.text is "" ):
                 user_error = "Please enter a username and a passphrase"
                 self.open_dialog(user_error)
-            elif(self.list.ids.userfield.text is "" ):
+            elif(self.list.ids.userfield.text is "" ):  # FIXME no need to try all combinations, if any of them is missing just say "Please enter a username and a passphrase", it will suffice and simplify code here
                 user_error = "Please enter a username"
                 self.open_dialog(user_error)
             elif (self.list.ids.passphrasefield.text is ""):
@@ -64,7 +72,7 @@ class MainApp(MDApp):
     def close_dialog(self,obj):
         self.dialog.dismiss()
 
-    def createList(self):
+    def createList(self):  # FIXME wrong naming case
         self.list = Factory.Lists()
         self.screen.add_widget(self.list)
         self.list = Factory.Lists()
@@ -82,7 +90,7 @@ class MainApp(MDApp):
 
 
 
-    def initialize_7_RSA_key_USB(self):
+    def initialize_7_RSA_key_USB(self):  # FIXME wrong naming case
 
         initialize_key_device(self.key_device_selected, self.list.ids.userfield.text)
         metadata_file = _get_metadata_file_path(self.key_device_selected)
@@ -98,7 +106,7 @@ class MainApp(MDApp):
 
 
 
-    def retry_initialisation(self):
+    def retry_initialisation(self):  # FIXME this "retry" button seems useless, we already have a "refresh"
         self.refresh_list()
 
 
@@ -109,7 +117,7 @@ class MainApp(MDApp):
         self.createList()
         return self.screen
 
-    def key_device_selected_fct(self,linelist):
+    def key_device_selected_fct(self,linelist):  # FIXME wrong naming
         list_devices = list_available_key_devices()
         for index, key_device in enumerate(list_devices):
             if linelist.text == "Path :" + str(key_device["path"]):
@@ -126,11 +134,12 @@ class MainApp(MDApp):
                     self.alertMessage = Label(text="Please fill in the username and passphrase to initialize the usb key")
                 self.list.ids.labelInfoUsb1.add_widget(self.l)
                 self.list.ids.label_alert.add_widget(self.alertMessage)
-    def waiting_message(self):
+
+    def waiting_message(self):  # FIXME wrong naming
         self.l.text = "Please wait a few seconds."
         self.alertMessage.text = "the operation is being processed."
 
-    def initialize_USB(self):
+    def initialize_USB(self):  # FIXME wrong naming case
         self.waiting_message()
 
         # Store the reference, in case you want to show things again in standard output
@@ -156,7 +165,9 @@ class MainApp(MDApp):
         self.list.ids.errors.add_widget(Label(text=result_string, font_size='20sp'))
         self.success_message()
 
-    def success_message(self):
+        # FIXME also refresh keys?
+
+    def success_message(self):  # FIXME wrong naming
         if self.success :
             self.list.ids.errors.add_widget(Label(text="successful operation", font_size='20sp'))
             self.list.ids.button_initialize.disabled = True

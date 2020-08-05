@@ -4,6 +4,10 @@ from pathlib import PurePath
 from wacryptolib.utilities import dump_to_json_file, load_from_json_file
 from wacryptolib.utilities import generate_uuid0
 
+# NOTE in the future you can use https://stackoverflow.com/questions/20101834/pip-install-from-git-repo-branch
+# To install development version of wacryptolib, and this way you don't need to copy/paste code like this
+
+
 
 def list_available_key_devices():
 
