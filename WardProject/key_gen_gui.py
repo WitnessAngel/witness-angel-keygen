@@ -114,7 +114,8 @@ class MainApp(MDApp):
         self.get_detected_devices()
         return self.screen
 
-    def get_info_key_selected(self, linelist):
+
+    def get_info_key_selected(self, linelist):  
         list_devices = list_available_key_devices()
         for i in self.list.ids.scroll.children:
             i.bg_color = [0.1372, 0.2862, 0.5294, 1]
@@ -134,7 +135,6 @@ class MainApp(MDApp):
         for index, key_device in enumerate(list_devices):
             if linelist.text == "[color=#FFFFFF][b]Path:[/b] "+ str(key_device["path"]) +"[/color]":
                 self.key_device_selected = key_device
-                print(key_device["is_initialized"])
                 if str(key_device["is_initialized"]) == "True":
                     self.list.ids.button_initialize.disabled = True
                     self.list.ids.userfield.disabled = True
